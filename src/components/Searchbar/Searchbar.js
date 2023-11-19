@@ -1,15 +1,26 @@
-import { FormBtn, FormStyled, SearchbarStyle } from './Searchbar.styled';
+import {
+  SearchbarStyled,
+  SearchForm,
+  SearchFormButton,
+  SearchFormButtonLabel,
+  SearchFormInput,
+} from './Searchbar.styled';
 
 export const Searchbar = () => {
   return (
-    <SearchbarStyle>
-      <FormStyled>
-        <FormBtn type="submit">
-          <span>Search</span>
-        </FormBtn>
+    <SearchbarStyled>
+      <SearchForm>
+        <SearchFormButton type="submit">
+          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        </SearchFormButton>
 
-        <input type="text" placeholder="Search images and photos" />
-      </FormStyled>
-    </SearchbarStyle>
+        <SearchFormInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </SearchForm>
+    </SearchbarStyled>
   );
 };

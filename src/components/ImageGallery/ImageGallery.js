@@ -1,4 +1,4 @@
-import { ImageGalleryItem } from '../ImageGalleryItem';
+import { ImageGalleryItem } from '../ImageGalleryItem.styled.js/ImageGalleryItem';
 import { ImageGalleryStyled } from './ImageGallery.styled';
 
 export const ImageGallery = ({ images }) => {
