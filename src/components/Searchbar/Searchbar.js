@@ -6,10 +6,10 @@ import {
   SearchFormInput,
 } from './Searchbar.styled';
 
-export const Searchbar = () => {
+export const Searchbar = ({ submit }) => {
   return (
     <SearchbarStyled>
-      <SearchForm>
+      <SearchForm onSubmit={submit}>
         <SearchFormButton type="submit">
           <SearchFormButtonLabel>Search</SearchFormButtonLabel>
         </SearchFormButton>
@@ -17,6 +17,7 @@ export const Searchbar = () => {
         <SearchFormInput
           type="text"
           autoComplete="off"
+          name="imagesValue"
           autoFocus
           placeholder="Search images and photos"
         />
