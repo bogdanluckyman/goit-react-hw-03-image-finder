@@ -13,6 +13,9 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    border: 'none',
+    overflow: 'hidden',
+    padding: 0,
   },
   overlay: {
     position: 'fixed',
@@ -33,22 +36,27 @@ Modal.setAppElement('#root');
 export class ImageGalleryItem extends Component {
   state = {
     isModalOpen: false,
+    selectedImageId: null,
   };
 
-  modalIsOpen = () => {
+  modalIsOpen = id => {
     this.setState({
       isModalOpen: true,
+      selectedImageId: id,
     });
   };
 
   closeModal = () => {
     this.setState({
       isModalOpen: false,
+      selectedImageId: null,
     });
   };
 
   render() {
     const { images } = this.props;
+    const { selectedImageId } = this.state;
+
     return (
       <>
         {images.map(({ id, webformatURL, largeImageURL }) => (
@@ -56,10 +64,10 @@ export class ImageGalleryItem extends Component {
             <GalleryItemImage
               src={webformatURL}
               alt="smallPhoto"
-              onClick={this.modalIsOpen}
+              onClick={() => this.modalIsOpen(id)}
             />
             <Modal
-              isOpen={this.state.isModalOpen}
+              isOpen={this.state.isModalOpen && selectedImageId === id}
               onRequestClose={this.closeModal}
               style={customStyles}
               contentLabel="Big picture"

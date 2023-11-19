@@ -5,6 +5,7 @@ import { Searchbar } from '../Searchbar/Searchbar';
 import { fetchImage } from '../api';
 import { HeroApp } from './App.styled';
 import { Button } from 'components/BtnLoadMore/BtnLoadMore';
+import { MagnifyingGlass } from 'react-loader-spinner';
 
 export class App extends Component {
   state = {
@@ -12,6 +13,7 @@ export class App extends Component {
     query: '',
     page: 1,
     totalHits: null,
+    isLoading: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -20,6 +22,7 @@ export class App extends Component {
       prevState.page !== this.state.page
     ) {
       try {
+        this.setState({ isLoading: true });
         const { query, page } = this.state;
         const currentQuery = query.split('/').pop();
         const foundImage = await fetchImage({ currentQuery, page });
@@ -30,7 +33,10 @@ export class App extends Component {
             totalHits: foundImage.totalHits,
           };
         });
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        this.setState({ isLoading: false });
+      }
     }
   }
 
@@ -57,6 +63,18 @@ export class App extends Component {
     return (
       <HeroApp>
         <Searchbar submit={this.handleSubmit} />
+        {this.state.isLoading && (
+          <MagnifyingGlass
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="MagnifyingGlass-loading"
+            wrapperStyle={{}}
+            wrapperClass="MagnifyingGlass-wrapper"
+            glassColor="#c0efff"
+            color="#e15b64"
+          />
+        )}
         <ImageGallery images={this.state.images} />
         {this.state.totalHits !== null &&
           this.state.images.length < this.state.totalHits && (
